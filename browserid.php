@@ -34,7 +34,7 @@ function login() {
 
 <body>
 <form id="login-form" method="POST">
-<input id="assertion-field" type="hidden" name="assertion" value="missing">
+<input id="assertion-field" type="hidden" name="assertion" value="">
 </form>
 
 <p><a href="javascript:login()">Login</a></p>
