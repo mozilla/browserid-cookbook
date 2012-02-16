@@ -1,0 +1,16 @@
+!!!
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/style.css')
+  body 
+    nav
+      if user
+        a(href='/logout') Logout 
+      else
+        form(id="login-form", action="/auth", method="POST")
+          input(id="assertion-field", type="hidden", name="assertion", value="")
+        a#browserid(href='/auth') Sign in      
+    != body
+    script(src='https://browserid.org/include.js')
+    script(src='/js/main.js')
