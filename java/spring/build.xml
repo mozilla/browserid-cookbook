@@ -1,0 +1,71 @@
+<!--===========================================================================
+  
+  This build file will use the common_build.xml file as the default build
+  process and should only override the tasks that need to differ from
+  the common build file.
+
+  See common_build.xml for more details
+============================================================================-->
+<project name="SpringSecurityBrowserID" basedir="." default="jar"
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <description>
+  BrowserID (browserid.org) login integration with the Spring framework (www.springsource.org)
+  </description>
+
+  <!-- Import the common_build.xml file which contains all the default tasks -->
+  <import file="common_build.xml"/>
+
+
+  <target name="compile.compile" depends="init" description="Performs the actual javac compile">
+    <javac destdir="${classes.dir}"
+           debug="${javac.debug}"
+           deprecation="${javac.deprecation}"
+           fork="true"
+           source="${javac.source}"
+           target="${javac.target}">
+      <classpath>
+        <path refid="classpath"/>
+      </classpath>
+      <src path="${src.dir}"/>
+    </javac>
+  </target>
+
+  <property name="plugin.name"
+            value="secTest"
+            description="Name of the plugin"/>
+
+  <property name="resource.dir"
+            value="resources"
+            description="Name of the resource directory"/>
+
+  <property name="stage.dir"
+            value="${bin.dir}/stage"
+            description="Name of the resource directory"/>
+
+  <property name="samples.stage.dir"
+            value="${bin.dir}/stage-samples"
+            description="Name of the resource directory" />
+
+
+  <tstamp/>
+
+  <!-- Build the project.revision property -->
+  <condition property="distribution.version" value="${project.stage}-${DSTAMP}" else="${project.stage}-${project.version}">
+    <equals arg1="${project.version}" arg2="SNAPSHOT"/>
+  </condition>
+
+  <echo>distribution.version = ${distribution.version}</echo>
+
+  <!--altered, not really a plugin, just generate jar -->
+  <target name="dist" depends="clean,resolve,jar"/>
+  <target name="dist-compile" depends="jar"/>
+
+  <property name="plugin.artifact.id" value="${plugin.name}"/>
+  <property name="plugin.zipfile" value="${plugin.artifact.id}-${distribution.version}.zip"/>
+  <property name="plugin.samples.zipfile" value="${plugin.artifact.id}-samples-${distribution.version}.zip"/>
+  <property name="plugin.solution.zipfile" value="${plugin.artifact.id}-solution-${distribution.version}.zip"/>
+
+
+
+</project>

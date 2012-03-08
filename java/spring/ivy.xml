@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
+
+	<info organisation="pentaho" module="sec-test" revision="${project.revision}"/>
+
+	<configurations>
+		<conf name="default"/>
+		<conf name="test" visibility="private"/>
+	</configurations>
+
+	<dependencies defaultconf="default->default">
+
+ <!-- base internal -->
+    <dependency org="commons-lang" name="commons-lang" rev="${dep.commons-lang.rev}"/>
+    <dependency org="commons-logging" name="commons-logging" rev="${dep.commons-logging.rev}" transitive="false"/>
+    <dependency org="commons-httpclient" name="commons-httpclient" rev="${dep.commons-httpclient.rev}" transitive="false" />
+    
+    <dependency org="org.json" name="json" rev="${dep.json.rev}" transitive="false"/>
+
+ <!-- spring -->
+    <dependency org="javax.servlet" name="servlet-api" rev="${dep.servlet-api.rev}" />
+
+    <dependency org="org.springframework" name="spring" rev="${dep.springframework.rev}" transitive="false"/>
+    <dependency org="org.springframework.security"   name="spring-security-core" rev="${dep.springframework.security.rev}" transitive="false"/>
+    
+
+	</dependencies>
+
+</ivy-module>

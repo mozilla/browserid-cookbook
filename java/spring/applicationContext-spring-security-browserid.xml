@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springsource.org/dtd/spring-beans.dtd">
+
+<!--+
+  | Example application context for BrowserID login
+  | 
+  +-->
+<beans>
+  
+  <!-- performs the browserid authentication based on an assertion sent from the client; added to the filter chain-->
+  <bean id="browserIdProcessingFilter" class="pt.webdetails.browserid.spring.BrowserIdProcessingFilter">
+    <!-- parameter name sent by the UI -->
+    <property name="assertionParameterName" value="assertion"/>
+    <!-- target url for UI login post, make sure to sync with client -->
+    <property name="filterProcessesUrl" value="/browserid_security_check" />
+    <!-- BrowserID verification service that will be used for assertion verification -->
+    <property name="verificationServiceUrl" value="https://browserid.org/verify"/>
+    <!-- authentication manager for processing the token and granting authorities -->
+    <property name="authenticationManager">
+      <ref bean="authenticationManager" />
+    </property>
+    <!--  -->
+    <property name="defaultTargetUrl" value="/Home" />
+    <!--  -->
+    <property name="authenticationFailureUrl" value="/Login?login_error=1" />
+  </bean>
+  
+  <!-- this AuthenticationProvider grants authorities to an authenticated user; added to authenticationManager's providers list-->
+  <bean id="browserIdAuthenticationProvider" class="pt.webdetails.browserid.spring.BrowserIdAuthenticationProvider">
+    <!-- authentication manager for processing the token and granting authorities -->
+    <property name="authoritiesService">
+      <!-- ref bean="userDetailsService"/-->
+      <ref local="authoritiesService"/>
+    </property>
+  </bean>
+
+ <!-- to grant authorities based on email's domain -->
+  <bean id="browserIdAuthoritiesService" class="pt.webdetails.browserid.spring.authorities.DomainWhitelistAuthoritiesService">
+    <property name="domainMap">
+      <value><![CDATA[
+webdetails.pt=Authenticated,dev
+mozilla.com=Authenticated
+mozilla.org=Authenticated]]></value>
+    </property>
+  </bean>
+  
+  <!-- to use a standard spring UserDetailsService -->
+  <bean id="wrappedUserDetailsService" class="pt.webdetails.browserid.spring.authorities.UserDetailsWrapperAuthoritiesService">
+    <property name="userDetailsService">
+      <ref bean="userDetailsService"/>
+    </property>
+  </bean>
+  
+  <!-- to use a db of registered emails -->
+  <bean id="authoritiesService" class="pt.webdetails.browserid.spring.authorities.JdbcAuthoritiesService">
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+    <property name="fetchAuthoritiesByEmailQuery">
+      <value><![CDATA[
+      select username,authority from GRANTED_AUTHORITIES
+      where username=?
+      ]]></value>
+    </property>
+    <property name="resultRoleColumnNumber" value="2"/>
+  </bean>
+  
+</beans>
