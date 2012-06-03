@@ -2,7 +2,7 @@
 This repo is for demonstrating how to use BrowserID in your favorite
 language or framework.
 
-Starting with [Francois Marier](http://fmarier.org)'s simple demo in PHP, the cookbook hopes to capture your recipies.
+Starting with [Francois Marier](http://fmarier.org)'s simple demo in PHP, the cookbook hopes to capture your recipes.
 
 ## Get Involved ##
 Please fork and send us a pull request of your demo.
