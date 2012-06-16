@@ -1,0 +1,8 @@
+-if login?
+  %p="Welcome #{session[:email]}!"
+  #avatar
+    %img{:src => getGravatarURL, :alt => "Gravatar"}
+  %a{:href => "/auth/logout", :title => "Sign-out"} Sign-out
+-else
+  %a#browserid{:href => "#", :title=>"Sign-in with BrowserID"}
+    %img{:src=> "/images/sign_in_blue.png", :alt=>"Sign-in with BrowserID"}
