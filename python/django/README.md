@@ -4,6 +4,6 @@ This example was written using django 1.4.
 
 To run this example:
 
-    ./manange.py runserver
+    ./manage.py runserver
 
 And go to [localhost:8000](http://localhost:8000)
