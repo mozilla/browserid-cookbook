@@ -1,9 +1,7 @@
 #!/usr/bin/python2
 
 import web
-import urllib
-import urllib2
-import json
+import requests
 
 urls = (
     '/', 'index',
@@ -21,10 +19,19 @@ class status:
     def POST(self):
         audience = "http://localhost:8080"
         i = web.input()
-        page = urllib2.urlopen('https://browserid.org/verify',
-                               urllib.urlencode({ "assertion": i.assertion,
-                                                  "audience": audience }))
-        data = json.load(page)
+
+        try:
+            page = requests.post('https://browserid.org/verify',
+                                 verify=True,
+                                 data={ "assertion": i.assertion,
+                                        "audience": audience})
+            data = page.json
+        except requests.exceptions.SSLError:
+            data = { "status": "failed",
+                     "reason": "Could not verify SSL certificate" }
+        except requests.exceptions.ConnectionError:
+            data = { "status": "failed",
+                     "reason": "Could not connect to server" }
 
         if data['status'] == "okay":
             message = "Logged in as: %s" % data['email']

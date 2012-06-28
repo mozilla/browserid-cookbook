@@ -1,6 +1,4 @@
-import urllib
-import urllib2
-import json
+import requests
 
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
@@ -11,9 +9,19 @@ def status(request):
 
     audience = 'http://localhost:8000'
     assertion = request.POST['assertion']
-    page = urllib2.urlopen('https://browserid.org/verify',
-                           urllib.urlencode({ "assertion": assertion,
-                                              "audience": audience}))
-    data = json.load(page)
+
+    try:
+        page = requests.post('https://browserid.org/verify',
+                             verify=True,
+                             data={ "assertion": assertion,
+                                    "audience": audience})
+        data = page.json
+    except requests.exceptions.SSLError:
+        data = { "status": "failed",
+                 "reason": "Could not verify SSL certificate" }
+    except requests.exceptions.ConnectionError:
+        data = { "status": "failed",
+                 "reason": "Could not connect to server" }
+
 
     return render_to_response('status.html', { 'data': data })

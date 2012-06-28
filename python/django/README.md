@@ -1,6 +1,7 @@
 # Python django example
 
-This example was written using django 1.4.
+This example was written using [django](http://www.djangoproject.com)
+1.4 and [Requests](http://python-requests.org).
 
 To run this example:
 

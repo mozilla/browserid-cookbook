@@ -1,10 +1,8 @@
 #!/usr/bin/python
 
 import cgi
-import json
 import os
-import urllib
-import urllib2
+import requests
 
 def print_login_form():
     print """<html>
@@ -38,10 +36,21 @@ def verify_assertion(assertion):
     if 'HTTPS' in os.environ:
         audience = 'https://'
     audience += os.environ['SERVER_NAME'] + ':' + os.environ['SERVER_PORT']
-    postdata = urllib.urlencode({"assertion": assertion, "audience": audience})
 
-    page = urllib2.urlopen('https://browserid.org/verify', postdata)
-    return json.load(page)
+    try:
+        page = requests.post('https://browserid.org/verify',
+                             verify=True,
+                             data={ "assertion": assertion,
+                                    "audience": audience})
+        data = page.json
+    except requests.exceptions.SSLError:
+        data = { "status": "failed",
+                 "reason": "Could not verify SSL certificate" }
+    except requests.exceptions.ConnectionError:
+        data = { "status": "failed",
+                 "reason": "Could not connect to server" }
+
+    return data
 
 print 'Content-type: text/html\n\n'
 
