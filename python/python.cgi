@@ -7,7 +7,7 @@ import requests
 def print_login_form():
     print """<html>
 <head>
-<script src="https://browserid.org/include.js"></script>
+<script src="https://login.persona.org/include.js"></script>
 <script>
 function login() {
     navigator.id.get(function (assertion) {
@@ -38,7 +38,7 @@ def verify_assertion(assertion):
     audience += os.environ['SERVER_NAME'] + ':' + os.environ['SERVER_PORT']
 
     try:
-        page = requests.post('https://browserid.org/verify',
+        page = requests.post('https://verifier.login.persona.org/verify',
                              verify=True,
                              data={ "assertion": assertion,
                                     "audience": audience})
