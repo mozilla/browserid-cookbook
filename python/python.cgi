@@ -4,32 +4,31 @@ import cgi
 import os
 import requests
 
-def print_login_form():
-    print """<html>
-<head>
-<script src="https://login.persona.org/include.js"></script>
-<script>
-function login() {
-    navigator.id.get(function (assertion) {
-        if (assertion) {
-            var assertion_field = document.getElementById("assertion-field");
-            assertion_field.value = assertion;
-            var login_form = document.getElementById("login-form");
-            login_form.submit();
-        }
-    });
-}
-</script>
-</head>
+def print_header(email = 'null'):
+    if email != 'null':
+        email = '"%s"' % email
 
+    print """<!DOCTYPE html><html><head><meta charset="utf-8">
+<script src="https://login.persona.org/include.js"></script>
+</head>
 <body>
+<script>
+navigator.id.watch({
+    loggedInEmail: %s,
+    onlogin: function (assertion) {
+        var assertion_field = document.getElementById("assertion-field");
+        assertion_field.value = assertion;
+        var login_form = document.getElementById("login-form");
+        login_form.submit();
+    },
+    onlogout: function () {
+        window.location = '?logout=1';
+    },
+});
+</script>
 <form id="login-form" method="POST">
 <input id="assertion-field" type="hidden" name="assertion" value="">
-</form>
-
-<p><a href="javascript:login()">Login</a></p>
-</body>
-</html>"""
+</form>""" % email
 
 def verify_assertion(assertion):
     audience = 'http://'
@@ -56,14 +55,21 @@ print 'Content-type: text/html\n\n'
 
 form = cgi.FieldStorage()
 if 'assertion' in form:
-    print "<html><body>"
     result = verify_assertion(form['assertion'].value)
     if result['status'] == 'okay':
+        print_header(result['email'])
         print "<p>Logged in as: " + result['email'] + "</p>"
+        print "<p><a href=\"javascript:navigator.id.logout()\">Logout</a></p>"
     else:
+        print_header()
         print "<p>Error: " + result['reason'] + "</p>"
-
-    print '<p><a href="python.cgi">Back to login page</p>'
-    print "</body></html>"
+    print '<p><a href="python.cgi">Back to login page</a></p>'
+elif 'logout' in form:
+    print_header()
+    print '<p>Logged out.</p>'
+    print '<p><a href="python.cgi">Back to login page</a></p>'
 else:
-    print_login_form()
+    print_header()
+    print "<p><a href=\"javascript:navigator.id.request()\">Login</a></p>"
+
+print """</body></html>"""
