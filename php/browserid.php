@@ -44,7 +44,7 @@ EOF;
 }
 
 function verify_assertion($assertion) {
-    $audience = ($_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
+    $audience = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
     $postdata = 'assertion=' . urlencode($assertion) . '&audience=' . urlencode($audience);
 
     $ch = curl_init();
