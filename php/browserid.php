@@ -17,7 +17,7 @@ function print_login_form() {
     echo <<<EOF
 <html>
 <head>
-<script src="https://browserid.org/include.js"></script>
+<script src="https://login.persona.org/include.js"></script>
 <script>
 function login() {
     navigator.id.get(function (assertion) {
@@ -48,7 +48,7 @@ function verify_assertion($assertion) {
     $postdata = 'assertion=' . urlencode($assertion) . '&audience=' . urlencode($audience);
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://browserid.org/verify");
+    curl_setopt($ch, CURLOPT_URL, "https://verifier.login.persona.org/verify");
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
