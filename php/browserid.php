@@ -31,7 +31,7 @@ function print_header($email = 'null') {
 <body>
 <script>
 navigator.id.watch({
-    loggedInEmail: $email,
+    loggedInUser: $email,
     onlogin: function (assertion) {
         var assertion_field = document.getElementById("assertion-field");
         assertion_field.value = assertion;
@@ -49,7 +49,7 @@ navigator.id.watch({
 EOF;
 }
 
-function verify_assertion($assertion) {
+function verify_assertion($assertion, $cabundle = NULL) {
     $audience = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
     $postdata = 'assertion=' . urlencode($assertion) . '&audience=' . urlencode($audience);
 
@@ -58,6 +58,12 @@ function verify_assertion($assertion) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+    if (substr(PHP_OS, 0, 3) == 'WIN') {
+        if (!isset($cabundle)) {
+            $cabundle = dirname(__FILE__).DIRECTORY_SEPARATOR.'cabundle.crt';
+        }
+        curl_setopt($ch, CURLOPT_CAINFO, $cabundle);
+    }
     $json = curl_exec($ch);
     curl_close($ch);
 
