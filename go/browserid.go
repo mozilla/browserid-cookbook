@@ -8,12 +8,13 @@ import (
     "log"
     "net/http"
     "net/url"
+    "fmt"
 )
 
 const loginform = `
 <html>
     <head>
-        <script src="https://browserid.org/include.js"></script>
+        <script src="https://login.persona.org/include.js"></script>
         <script>
         function login() {
             navigator.id.get(function(assertion) {
@@ -80,7 +81,7 @@ func browserIDResponseFromJson(r io.Reader) (resp BrowserIDResponse) {
 func verifyAssertion(assertion string) BrowserIDResponse {
     audience := "http://localhost:8080"
     resp, _ := http.PostForm(
-        "https://browserid.org/verify",
+        "https://verifier.login.persona.org/verify",
         url.Values{
             "assertion": {assertion},
             "audience": {audience},
@@ -106,6 +107,7 @@ func rootPageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+    fmt.Println("Now open http://localhost:8080")
     http.HandleFunc("/", rootPageHandler)
     http.ListenAndServe(":8080", nil)
 }
