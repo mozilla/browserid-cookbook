@@ -40,7 +40,7 @@ exports.auth = function (audience) {
     });
     console.info('verifying with browserid');
     var request = https.request({
-      host: 'browserid.org',
+      host: 'verifier.login.persona.org',
       path: '/verify',
       method: 'POST',
       headers: {
