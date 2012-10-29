@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>tornado browserid example</title>
+    <script src="https://login.persona.org/include.js"></script>
+    <script>
+      function login() {
+          navigator.id.get(function(assertion) {
+              if (assertion) {
+                  var assertion_field = document.getElementById("assertion-field");
+                  assertion_field.value = assertion;
+                  var login_form = document.getElementById("login-form");
+                  login_form.submit();
+              }
+          });
+      }
+      </script>
+  </head>
+  <body>
+
+    <form id="login-form" method="POST" action="status">
+      <input id="assertion-field" type="hidden" name="assertion" value="" />
+    </form>
+
+    <p><a href="javascript:login()">Login</a></p>
+
+  </body>
+</html>
