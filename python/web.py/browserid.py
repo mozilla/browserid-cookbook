@@ -21,7 +21,7 @@ class status:
         i = web.input()
 
         try:
-            page = requests.post('https://browserid.org/verify',
+            page = requests.post('https://verifier.login.persona.org/verify',
                                  verify=True,
                                  data={ "assertion": i.assertion,
                                         "audience": audience})
