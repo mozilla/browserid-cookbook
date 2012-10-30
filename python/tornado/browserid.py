@@ -21,7 +21,7 @@ class BrowseridHandler(tornado.web.RequestHandler):
     def post(self):
         assertion = self.get_argument('assertion')
         http_client = tornado.httpclient.AsyncHTTPClient()
-        url = 'https://browserid.org/verify'
+        url = 'https://verifier.login.persona.org/verify'
         data = {
             'assertion': assertion,
             'audience': 'localhost:8080',
