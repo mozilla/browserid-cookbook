@@ -2,33 +2,44 @@
 if (!empty($_POST)) {
     $result = verify_assertion($_POST['assertion']);
     if ($result->status === 'okay') {
-        print_header($result->email);
+        print_header();
         echo "<p>Logged in as: " . $result->email . "</p>";
         echo '<p><a href="javascript:navigator.id.logout()">Logout</a></p>';
+        echo "<p><a href=\"browserid.php\">Back to login page</p>";
+        print_footer($result->email);
     } else {
         print_header();
         echo "<p>Error: " . $result->reason . "</p>";
+        echo "<p><a href=\"browserid.php\">Back to login page</p>";
+        print_footer();
     }
-    echo "<p><a href=\"browserid.php\">Back to login page</p>";
 } elseif (!empty($_GET['logout'])) {
     print_header();
     echo "<p>You have logged out.</p>";
     echo "<p><a href=\"browserid.php\">Back to login page</p>";
+    print_footer();
 } else {
     print_header();
     echo "<p><a href=\"javascript:navigator.id.request()\">Login</a>";
+    print_footer();
 }
-echo "</body></html>";
 
-function print_header($email = 'null') {
+function print_header() {
+    echo <<<EOF
+<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+<body>
+<form id="login-form" method="POST">
+<input id="assertion-field" type="hidden" name="assertion" value="">
+</form>
+EOF;
+}
+
+function print_footer($email = 'null') {
     if ($email !== 'null') {
         $email = "'$email'";
     }
     echo <<<EOF
-<!DOCTYPE html><html><head><meta charset="utf-8">
 <script src="https://login.persona.org/include.js"></script>
-</head>
-<body>
 <script>
 navigator.id.watch({
     loggedInUser: $email,
@@ -43,9 +54,7 @@ navigator.id.watch({
     }
 });
 </script>
-<form id="login-form" method="POST">
-<input id="assertion-field" type="hidden" name="assertion" value="">
-</form>
+</body></html>
 EOF;
 }
 
