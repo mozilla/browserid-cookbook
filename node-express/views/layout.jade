@@ -6,11 +6,17 @@ html
   body 
     nav
       if user
-        a(href='/logout') Logout 
+        a#logout(href='javascript:navigator.id.logout()') Logout
       else
         form(id="login-form", action="/auth", method="POST")
           input(id="assertion-field", type="hidden", name="assertion", value="")
-        a#browserid(href='/auth') Sign in      
+        a#browserid(href='javascript:navigator.id.request()') Sign in
     != body
+    if user
+      script
+        var loggedInUser = '#{user}';
+    else
+      script
+        var loggedInUser = null;
     script(src='https://login.persona.org/include.js')
     script(src='/js/main.js')
