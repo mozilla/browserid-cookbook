@@ -14,7 +14,7 @@ def print_header(email = 'null'):
 <body>
 <script>
 navigator.id.watch({
-    loggedInEmail: %s,
+    loggedInUser: %s,
     onlogin: function (assertion) {
         var assertion_field = document.getElementById("assertion-field");
         assertion_field.value = assertion;
