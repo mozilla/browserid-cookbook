@@ -4,14 +4,19 @@ import cgi
 import os
 import requests
 
-def print_header(email = 'null'):
+def print_header():
+    print """<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+<body>
+<form id="login-form" method="POST">
+<input id="assertion-field" type="hidden" name="assertion" value="">
+</form>"""
+
+def print_footer(email = 'null'):
     if email != 'null':
         email = '"%s"' % email
 
-    print """<!DOCTYPE html><html><head><meta charset="utf-8">
+    print """
 <script src="https://login.persona.org/include.js"></script>
-</head>
-<body>
 <script>
 navigator.id.watch({
     loggedInUser: %s,
@@ -26,9 +31,8 @@ navigator.id.watch({
     },
 });
 </script>
-<form id="login-form" method="POST">
-<input id="assertion-field" type="hidden" name="assertion" value="">
-</form>""" % email
+</body></html>""" % email
+
 
 def verify_assertion(assertion):
     audience = 'http://'
@@ -57,19 +61,22 @@ form = cgi.FieldStorage()
 if 'assertion' in form:
     result = verify_assertion(form['assertion'].value)
     if result['status'] == 'okay':
-        print_header(result['email'])
+        print_header()
         print "<p>Logged in as: " + result['email'] + "</p>"
         print "<p><a href=\"javascript:navigator.id.logout()\">Logout</a></p>"
+        print '<p><a href="python.cgi">Back to login page</a></p>'
+        print_footer(result['email'])
     else:
         print_header()
         print "<p>Error: " + result['reason'] + "</p>"
-    print '<p><a href="python.cgi">Back to login page</a></p>'
+        print '<p><a href="python.cgi">Back to login page</a></p>'
+        print_footer()
 elif 'logout' in form:
     print_header()
     print '<p>Logged out.</p>'
     print '<p><a href="python.cgi">Back to login page</a></p>'
+    print_footer()
 else:
     print_header()
     print "<p><a href=\"javascript:navigator.id.request()\">Login</a></p>"
-
-print """</body></html>"""
+    print_footer()
