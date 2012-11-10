@@ -14,21 +14,21 @@ if (!empty($_POST)) {
         print_header();
         echo "<p>Logged in as: " . $result->email . "</p>";
         echo '<p><a href="javascript:navigator.id.logout()">Logout</a></p>';
-        echo "<p><a href=\"browserid.php\">Back to login page</p>";
+        echo "<p><a href=\"persona.php\">Back to login page</p>";
         print_footer($result->email);
     } else {
         // Login-attempt not successful
         print_header();
         echo "<p>Error: " . $result->reason . "</p>";
         // Note that the explanation is technical and not user friendly
-        echo "<p><a href=\"browserid.php\">Back to login page</p>";
+        echo "<p><a href=\"persona.php\">Back to login page</p>";
         print_footer();
     }
 } elseif (!empty($_GET['logout'])) {
     // Logout request submitted
     print_header();
     echo "<p>You have logged out.</p>";
-    echo "<p><a href=\"browserid.php\">Back to login page</p>";
+    echo "<p><a href=\"persona.php\">Back to login page</p>";
     print_footer();
 } else {
     // The state of the page
