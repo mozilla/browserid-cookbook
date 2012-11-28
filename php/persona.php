@@ -76,10 +76,9 @@ EOF;
  * Verify that the user has got a real asserion
  *
  * @param string $assertion The assertion as received from the login dialog
- * @param string $cabundle  Path and filename to cabundle.crt
  * @return object
  */
-function verify_assertion($assertion, $cabundle = NULL) {
+function verify_assertion($assertion) {
     $audience = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
     $postdata = 'assertion=' . urlencode($assertion) . '&audience=' . urlencode($audience);
 
@@ -88,12 +87,6 @@ function verify_assertion($assertion, $cabundle = NULL) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-    if (substr(PHP_OS, 0, 3) == 'WIN') {
-        if (!isset($cabundle)) {
-            $cabundle = dirname(__FILE__).DIRECTORY_SEPARATOR.'cabundle.crt';
-        }
-        curl_setopt($ch, CURLOPT_CAINFO, $cabundle);
-    }
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     $json = curl_exec($ch);
