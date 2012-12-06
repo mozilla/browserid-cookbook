@@ -33,7 +33,7 @@ if (!empty($_POST)) {
 } else {
     // The state of the page
     print_header();
-    echo "<p><a href=\"javascript:navigator.id.request()\">Login</a>";
+    echo "<p><a href=\"javascript:navigator.id.request()\">Login</a></p>";
     print_footer();
 }
 
