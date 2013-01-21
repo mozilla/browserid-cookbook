@@ -17,6 +17,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({ secret: 'your secret here' }));
+  app.use(express.csrf());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
