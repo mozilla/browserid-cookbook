@@ -5,7 +5,7 @@ var https = require('https'),
  */
 
 exports.index = function(req, resp){
-  resp.render('index', { title: 'Express', user: req.session.email })
+  resp.render('index', { title: 'Express', user: req.session.email, csrf: req.session._csrf })
 };
 
 exports.auth = function (audience) {
