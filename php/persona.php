@@ -1,40 +1,28 @@
 <?php
-/**
- * Example application using Persona for logins
- */
 
 $body = $email = NULL;
 if (isset($_POST['assertion'])) {
     $persona = new Persona();
-
-    // A user has attempted to log in
     $result = $persona->verifyAssertion($_POST['assertion']);
 
     if ($result->status === 'okay') {
         $body = "<p>Logged in as: " . $result->email . "</p>";
         $body .= '<p><a href="javascript:navigator.id.logout()">Logout</a></p>';
-        $body .= html_backLink();
         $email = $result->email;
     } else {
         $body = "<p>Error: " . $result->reason . "</p>";
-        $body .= html_backLink();
     }
+    $body .= "<p><a href=\"persona.php\">Back to login page</a></p>";
 } elseif (!empty($_GET['logout'])) {
     $body = "<p>You have logged out.</p>";
-    $body .= html_backLink();
+    $body .= "<p><a href=\"persona.php\">Back to login page</a></p>";
 } else {
     $body = "<p><a href=\"javascript:navigator.id.request()\">Login</a></p>";
 }
 
-function html_backLink() {
-    return "<p><a href=\"persona.php\">Back to login page</a></p>";
-}
-
 ?><!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-  </head>
+  <head><meta charset="utf-8"></head>
   <body>
     <form id="login-form" method="POST">
       <input id="assertion-field" type="hidden" name="assertion" value="">
@@ -103,8 +91,7 @@ class Persona
     protected function guessAudience()
     {
         $audience = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-        $audience .= $_SERVER['SERVER_NAME'];
-        $audience .= ':'.$_SERVER['SERVER_PORT'];
+        $audience .= $_SERVER['SERVER_NAME'] . ':'.$_SERVER['SERVER_PORT'];
         return $audience;
     }
 }
