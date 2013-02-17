@@ -1,37 +1,28 @@
 <?php
 /**
- * Example script that shows a very basic functionality of Persona in PHP
- *
- * This script does not represent production quality code, but
- * should provide a general overview of the steps.
+ * Example application using Persona for logins
  */
 
 $body = $email = NULL;
-if (isset($_POST['assertion'])) { // @TODO security: what is assertion here?
+if (isset($_POST['assertion'])) {
     $persona = new Persona();
-    
+
     // A user has attempted to log in
     $result = $persona->verifyAssertion($_POST['assertion']);
-    
+
     if ($result->status === 'okay') {
         $body = "<p>Logged in as: " . $result->email . "</p>";
         $body .= '<p><a href="javascript:navigator.id.logout()">Logout</a></p>';
         $body .= html_backLink();
         $email = $result->email;
-        
     } else {
-        // Login-attempt not successful
-        
-        // Note that the explanation is technical and not user friendly
         $body = "<p>Error: " . $result->reason . "</p>";
-        
         $body .= html_backLink();
     }
 } elseif (!empty($_GET['logout'])) {
     $body = "<p>You have logged out.</p>";
     $body .= html_backLink();
 } else {
-    // The state of the page
     $body = "<p><a href=\"javascript:navigator.id.request()\">Login</a></p>";
 }
 
@@ -39,7 +30,6 @@ function html_backLink() {
     return "<p><a href=\"persona.php\">Back to login page</a></p>";
 }
 
-// A very simple form is being used to mimick an Ajax request
 ?><!DOCTYPE html>
 <html>
   <head>
@@ -72,34 +62,28 @@ function html_backLink() {
 class Persona
 {
     /**
-     * Audience full ServerName
-     * 
-     * @var string including http:// or https:// including : and port
+     * Scheme, hostname and port
      */
     protected $audience;
 
     /**
-     * constructs a new Persona
-     *
-     * if $audience is not provided the audience will be guessed from $_SERVER
-     * @param string $audience including http:// or https:// including : and port
+     * Constructs a new Persona (optionally specifying the audience)
      */
     public function __construct($audience = NULL, $serverPort = NULL)
     {
         $this->audience = $audience ?: $this->guessAudience();
     }
-  
+
     /**
-     * Verify that the user has got a real asserion
+     * Verify the validity of the assertion received from the user
      *
-     * returns the response from the persona verifier service
      * @param string $assertion The assertion as received from the login dialog
-     * @return object
+     * @return object The response from the Persona online verifier
      */
     public function verifyAssertion($assertion)
     {
         $postdata = 'assertion=' . urlencode($assertion) . '&audience=' . urlencode($this->audience);
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://verifier.login.persona.org/verify");
         curl_setopt($ch, CURLOPT_POST, true);
@@ -109,22 +93,18 @@ class Persona
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         $response = curl_exec($ch);
         curl_close($ch);
-    
+
         return json_decode($response);
     }
-    
+
     /**
-     * Guesses an Audience from global $_SERVER vars
-     *
-     * @return string the full server name with port an http://
+     * Guesses the audience from the web server configuration
      */
     protected function guessAudience()
     {
         $audience = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
         $audience .= $_SERVER['SERVER_NAME'];
         $audience .= ':'.$_SERVER['SERVER_PORT'];
-        
         return $audience;
     }
 }
-?>
