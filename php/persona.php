@@ -57,7 +57,7 @@ class Persona
     /**
      * Constructs a new Persona (optionally specifying the audience)
      */
-    public function __construct($audience = NULL, $serverPort = NULL)
+    public function __construct($audience = NULL)
     {
         $this->audience = $audience ?: $this->guessAudience();
     }
