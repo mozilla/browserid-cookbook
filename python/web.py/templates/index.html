@@ -4,6 +4,15 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>web.py browserid example</title>
+  </head>
+  <body>
+
+    <form id="login-form" method="POST" action="status">
+      <input id="assertion-field" type="hidden" name="assertion" value="" />
+    </form>
+
+    <p><a href="javascript:login()">Login</a></p>
+
     <script src="https://login.persona.org/include.js"></script>
     <script>
       function login() {
@@ -16,15 +25,6 @@
               }
           });
       }
-      </script>
-  </head>
-  <body>
-
-    <form id="login-form" method="POST" action="status">
-      <input id="assertion-field" type="hidden" name="assertion" value="" />
-    </form>
-
-    <p><a href="javascript:login()">Login</a></p>
-
+    </script>
   </body>
 </html>
