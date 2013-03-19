@@ -5,7 +5,7 @@ import os
 import requests
 
 def print_header():
-    print """<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+    print """<!DOCTYPE html><html><head><meta http-equiv="X-UA-Compatible" content="IE=Edge"></head>
 <body>
 <form id="login-form" method="POST">
 <input id="assertion-field" type="hidden" name="assertion" value="">

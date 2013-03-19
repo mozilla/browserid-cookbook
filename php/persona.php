@@ -22,7 +22,7 @@ if (isset($_POST['assertion'])) {
 
 ?><!DOCTYPE html>
 <html>
-  <head><meta charset="utf-8"></head>
+  <head><meta http-equiv="X-UA-Compatible" content="IE=Edge"></head>
   <body>
     <form id="login-form" method="POST">
       <input id="assertion-field" type="hidden" name="assertion" value="">

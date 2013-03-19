@@ -14,6 +14,7 @@ import (
 const loginform = `
 <html>
     <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <script src="https://login.persona.org/include.js"></script>
         <script>
         function login() {
