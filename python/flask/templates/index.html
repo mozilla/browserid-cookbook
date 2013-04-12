@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.email %}  
+    <p>You are logged as {{ session.email }}</p>
+    <a href="#" id="signout" class="persona-button dark"><span>Sign out</span></a>
+  {% else %} 
+    <a href="#" id="signin" class="persona-button dark"><span>Sign in</span></a>
+{% endif %}
+    <script type="text/javascript">
+      var App = {
+        init: function(){
+          function simpleXhrSentinel(xhr) {
+              return function() {
+                  if (xhr.readyState == 4) {
+                      if (xhr.status == 200){
+                          window.location.reload();
+                        }
+                      else {
+                          navigator.id.logout();
+                          alert("XMLHttpRequest error: " + xhr.status);
+                        }
+                      }
+                    }
+                  }
+           
+          function verifyAssertion(assertion) {
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "/auth/login", true);
+              var data = 'assertion='+ assertion;
+              xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xhr.send(data);
+           
+              xhr.onreadystatechange = simpleXhrSentinel(xhr); }
+           
+          function signoutUser() {
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "/auth/logout", true);
+              xhr.send(null);
+              xhr.onreadystatechange = simpleXhrSentinel(xhr); }
+           
+          navigator.id.watch( {
+            {% if session.email %}
+              loggedInUser: '{{ session.email }}',
+            {% else %}
+              loggedInUser: null,
+            {% endif %}
+              onlogin: verifyAssertion,
+              onlogout: signoutUser
+          });
+
+          var signIn = document.getElementById('signin'),
+              signOut = document.getElementById('signout');
+          
+          if (signIn){
+            signIn.onclick = function(){ navigator.id.request(); };
+          } else if (signOut){
+            signOut.onclick = function(){ navigator.id.logout(); };
+          }
+        }
+
+      }
+
+      $(document).ready(function(){
+        App.init();
+      });
+    </script>
+{% endblock %}
