@@ -11,35 +11,22 @@
     <script type="text/javascript">
       var App = {
         init: function(){
-          function simpleXhrSentinel(xhr) {
-              return function() {
-                  if (xhr.readyState == 4) {
-                      if (xhr.status == 200){
-                          window.location.reload();
-                        }
-                      else {
-                          navigator.id.logout();
-                          alert("XMLHttpRequest error: " + xhr.status);
-                        }
-                      }
-                    }
-                  }
-           
           function verifyAssertion(assertion) {
-              var xhr = new XMLHttpRequest();
-              xhr.open("POST", "/auth/login", true);
-              var data = 'assertion='+ assertion;
-              xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-              xhr.send(data);
-           
-              xhr.onreadystatechange = simpleXhrSentinel(xhr); }
+            $.post('/auth/login', {assertion: assertion}, function (data, textStatus) {
+              if ('success' == textStatus) {
+                window.location.reload();
+              } else {
+                navigator.id.logout();
+              }
+            }, 'json');
+          }
            
           function signoutUser() {
-              var xhr = new XMLHttpRequest();
-              xhr.open("POST", "/auth/logout", true);
-              xhr.send(null);
-              xhr.onreadystatechange = simpleXhrSentinel(xhr); }
-           
+            $.post('/auth/logout', {}, function (data) {
+              window.location.reload();
+            });
+          }
+
           navigator.id.watch( {
             {% if session.email %}
               loggedInUser: '{{ session.email }}',
@@ -59,7 +46,6 @@
             signOut.onclick = function(){ navigator.id.logout(); };
           }
         }
-
       }
 
       $(document).ready(function(){
