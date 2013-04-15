@@ -2,9 +2,9 @@
 {% block body %}
   {% if session.email %}  
     <p>You are logged as {{ session.email }}</p>
-    <a href="#" id="signout" class="persona-button dark"><span>Sign out</span></a>
+    <a href="#" id="signout"><span>Sign out</span></a>
   {% else %} 
-    <a href="#" id="signin" class="persona-button dark"><span>Sign in</span></a>
+    <a href="#" id="signin"><span>Sign in</span></a>
   {% endif %}
 {% endblock %}
 {% block footer %}
