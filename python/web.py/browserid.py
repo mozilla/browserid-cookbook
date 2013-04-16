@@ -25,7 +25,7 @@ class status:
                                  verify=True,
                                  data={ "assertion": i.assertion,
                                         "audience": audience})
-            data = page.json
+            data = page.json()
         except requests.exceptions.SSLError:
             data = { "status": "failed",
                      "reason": "Could not verify SSL certificate" }
