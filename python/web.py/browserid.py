@@ -2,6 +2,7 @@
 
 import web
 import requests
+import json
 
 urls = (
     '/', 'index',
@@ -25,7 +26,7 @@ class status:
                                  verify=True,
                                  data={ "assertion": i.assertion,
                                         "audience": audience})
-            data = page.json
+            data = json.loads(page.content)
         except requests.exceptions.SSLError:
             data = { "status": "failed",
                      "reason": "Could not verify SSL certificate" }
