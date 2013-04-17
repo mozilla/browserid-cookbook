@@ -1,6 +1,5 @@
 from flask import Flask, abort, redirect, render_template, request, session
 import requests
-import json
 
 app = Flask(__name__)
 app.secret_key= ''
@@ -22,7 +21,7 @@ def login():
     if not resp.ok:
         abort(500)
 
-    data = json.loads(resp.content)
+    data = resp.json()
 
     if data['status'] == 'okay':
         session.update({'email': data['email']})
