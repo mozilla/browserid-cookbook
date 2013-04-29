@@ -1,8 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    haml (4.0.2)
-      tilt
     mime-types (1.23)
     rack (1.5.2)
     rack-protection (1.5.0)
@@ -19,6 +17,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  haml
   rest-client
   sinatra

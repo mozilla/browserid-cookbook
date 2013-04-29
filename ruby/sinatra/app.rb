@@ -1,26 +1,20 @@
 require "rubygems"
-require "haml"
 require "sinatra"
 require 'json'
 require 'rest-client'
-require 'digest/md5'
 
 enable :sessions
 
 helpers do
   
   def login?
-    return !session[:email].nil?
+    !session[:email].nil?
   end
   
-  def getGravatarURL
-    return "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(session[:email].strip.downcase)}"
-  end
-   
 end
 
 get "/" do
-  haml :index
+  erb :index
 end
 
 post "/auth/login" do
