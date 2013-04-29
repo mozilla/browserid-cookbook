@@ -24,7 +24,7 @@ end
 
 post "/auth/login" do
   if params[:assertion]
-    data = Nestful.post "https://verifier.login.persona.org/verify", :format => :json, :params => { :assertion => "#{params[:assertion]}", :audience => "http://#{request.host}:#{request.port}" }
+    data = Nestful.post "https://verifier.login.persona.org/verify", { :assertion => "#{params[:assertion]}", :audience => "http://#{request.host}:#{request.port}" }
     if data["status"] == "okay"
       session[:email] = data["email"]
       return data.to_json
