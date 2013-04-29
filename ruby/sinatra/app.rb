@@ -24,7 +24,7 @@ post "/auth/login" do
     restclient_url = "https://verifier.login.persona.org/verify"
     restclient_params = {
       :assertion => params["assertion"],
-      :audience  => "#{request.host}:#{request.port}",
+      :audience  => "http://localhost:#{request.port}", # use your website's URL here.
     }
     response = JSON.parse(RestClient::Resource.new(restclient_url, :verify_ssl => true).post(restclient_params))
   end
