@@ -9,7 +9,7 @@ jQuery(function($) {
           success: function(res, status, xhr) {  
             window.location.reload();
           },  
-          error: function(res, status, xhr) {
+          error: function(xhr, status, res) {
             alert("login failure" + res);
           }
         });

@@ -1,36 +1,42 @@
 require "rubygems"
-require "haml"
 require "sinatra"
-require 'nestful'
-require 'digest/md5'
+require 'json'
+require 'rest-client'
 
 enable :sessions
+set :session_secret, 'change_me_b37c971c-b172-11e2-9090-0018fe6a9105'
 
 helpers do
   
   def login?
-    return !session[:email].nil?
+    !session[:email].nil?
   end
   
-  def getGravatarURL
-    return "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(session[:email].strip.downcase)}"
-  end
-   
 end
 
 get "/" do
-  haml :index
+  erb :index
 end
 
 post "/auth/login" do
+  # check assertion with a request to the verifier
+  response = nil
   if params[:assertion]
-    data = Nestful.post "https://verifier.login.persona.org/verify", :format => :json, :params => { :assertion => "#{params[:assertion]}", :audience => "http://#{request.host}:#{request.port}" }
-    if data["status"] == "okay"
-      session[:email] = data["email"]
-      return data.to_json
-    end
+    restclient_url = "https://verifier.login.persona.org/verify"
+    restclient_params = {
+      :assertion => params["assertion"],
+      :audience  => "http://localhost:#{request.port}", # use your website's URL here.
+    }
+    response = JSON.parse(RestClient::Resource.new(restclient_url, :verify_ssl => true).post(restclient_params))
   end
-  return {:status => "error"}.to_json
+
+  # create a session if assertion is valid
+  if response["status"] == "okay"
+    session[:email] = response["email"]
+    response.to_json
+  else
+    {:status => "error"}.to_json
+  end
 end
 
 get "/auth/logout" do
