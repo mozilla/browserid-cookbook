@@ -4,6 +4,7 @@ require 'json'
 require 'rest-client'
 
 enable :sessions
+set :session_secret, 'change_me_b37c971c-b172-11e2-9090-0018fe6a9105'
 
 helpers do
   
