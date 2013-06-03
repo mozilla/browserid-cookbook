@@ -1,12 +1,9 @@
-{% load staticfiles %}
-
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>django browserid example</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/persona-buttons.css'  %}"
   </head>
   <body>
 
@@ -15,7 +12,7 @@
       <input id="assertion-field" type="hidden" name="assertion" value="" />
     </form>
 
-    <p><a class="persona-button" href="javascript:login()"><span>Login with Persona</span></a></p>
+    <p><a href="javascript:login()">Login</a></p>
 
     <script src="https://login.persona.org/include.js"></script>
     <script>
