@@ -1,7 +1,7 @@
 # Django settings for example project.
 
 DEBUG = True
-SECRET_KEY = '*os&%jlrx+oy6b3*vkr5wib%4aba((!93nj7_mm)@4-+$%o(hu'
+
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
