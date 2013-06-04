@@ -17,12 +17,14 @@ if (isset($_POST['assertion'])) {
     $body = "<p>You have logged out.</p>";
     $body .= "<p><a href=\"persona.php\">Back to login page</a></p>";
 } else {
-    $body = "<p><a href=\"javascript:navigator.id.request()\">Login</a></p>";
+    $body = "<p><a class=\"persona-button\" href=\"javascript:navigator.id.request()\"><span>Login with Persona</span></a></p>";
 }
 
 ?><!DOCTYPE html>
 <html>
-  <head><meta http-equiv="X-UA-Compatible" content="IE=Edge"></head>
+  <head><meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <link rel="stylesheet" type="text/css" href="css/persona-buttons.css"
+  </head>
   <body>
     <form id="login-form" method="POST">
       <input id="assertion-field" type="hidden" name="assertion" value="">
