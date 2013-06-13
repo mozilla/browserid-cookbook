@@ -1,0 +1,45 @@
+<h1>Cuba App</h1>
+<nav>
+% if this.login?
+  Welcome {{email}}
+  <a href="#" id="logout-btn">Logout</a>
+% else
+  <a href="#" id="login-btn">Login</a>
+% end
+</nav>
+
+<script>
+    navigator.id.watch({
+      % if this.login?
+        loggedInUser:   '{{ email }}',
+      % else
+        loggedInUser:   null,
+      % end
+        onlogin: function(assertion){
+          $.post('/login', {assertion:assertion}, function(data){
+           window.location.reload(); 
+          }).fail(function(xhr, status, err){
+            console.log(status);
+          });
+        },
+        onlogout: function(){
+          $.post('/logout', {}, function(data){
+            window.location.reload();
+          }).fail(function(xhr, status, err){
+            console.log(status);
+          });
+        }
+    });
+
+    var loginBtn = document.getElementById('login-btn'),
+        logoutBtn = document.getElementById('logout-btn');
+    if (loginBtn){
+      loginBtn.onclick = function(){
+        navigator.id.request();
+      };
+    } else if (logoutBtn){
+      logoutBtn.onclick = function(){
+        navigator.id.logout();
+      };
+    }
+</script>
