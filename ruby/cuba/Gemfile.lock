@@ -1,0 +1,24 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cuba (3.1.0)
+      rack
+    cuba-contrib (3.1.0)
+      cuba (~> 3.1)
+    mime-types (1.23)
+    mote (1.1.2)
+    rack (1.5.2)
+    rack-protection (1.5.0)
+      rack
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cuba
+  cuba-contrib
+  mote
+  rack-protection
+  rest-client
