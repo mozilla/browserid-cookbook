@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>App</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+  <script src="https://login.persona.org/include.js"></script>
+  <script type="text/javascript">
+    <% if current_user %>
+      var $USER = '<%= current_user.email %>';
+    <% else %>
+      var $USER = null;
+    <% end %>
+  </script>
+  <%= javascript_include_tag "application" %>
+</body>
+</html>

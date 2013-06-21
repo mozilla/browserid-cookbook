@@ -1,0 +1,6 @@
+<% if current_user %>
+  <p>Welcome <%= current_user.email %></p>
+  <a href="#" id="signout"><span>Sign out</span></a>
+<% else %>
+  <a href="#" id="signin"><span>Sign in</span></a>
+<% end %>
