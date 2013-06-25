@@ -13,12 +13,12 @@ html
           input(id="assertion-field", type="hidden", name="assertion", value="")
           input(type="hidden", name="_csrf", value=csrf)
         a#browserid(href='javascript:navigator.id.request()') Sign in
-    != body
+    block content
     if user
-      script
+      script.
         var loggedInUser = '#{user}';
     else
-      script
+      script.
         var loggedInUser = null;
     script(src='https://login.persona.org/include.js')
     script(src='/js/main.js')
