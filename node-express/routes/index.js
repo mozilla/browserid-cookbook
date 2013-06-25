@@ -38,7 +38,7 @@ exports.auth = function (audience) {
       assertion: assertion,
       audience: audience
     });
-    console.info('verifying with browserid');
+    console.info('verifying with persona');
     var request = https.request({
       host: 'verifier.login.persona.org',
       path: '/verify',
