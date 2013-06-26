@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Persona Login</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="main-div">
+      <img id="signin" src="https://developer.mozilla.org/files/3955/email_sign_in_black.png" alt="login" />
+    </div>
+
+
+    <script src="https://login.persona.org/include.js"></script>
+    <script language="javascript">
+	var signinLink = document.getElementById('signin');
+	if (signinLink) {
+	  signinLink.onclick = function() { navigator.id.request(); };
+	}
+
+	var signoutLink = document.getElementById('signout');
+	if (signoutLink) {
+	  signoutLink.onclick = function() { navigator.id.logout(); };
+	}
+
+	navigator.id.watch({
+	  onlogin: function(assertion) {
+	    // A user has logged in! Here you need to:
+	    // 1. Send the assertion to your backend for verification and to create a session.
+	    // 2. Update your UI.
+	    $.ajax({ /* <-- This example uses jQuery, but you can use whatever you'd like */
+	      type: 'POST',
+	      url: '/api/login', // This is a URL on your website.
+	      data: {assertion: assertion},
+	      success: function(res, status, xhr) { 
+            var json = JSON.parse(res);
+            alert("Welcome " + json['email'] + "!"); 
+          },
+	      error: function(xhr, status, err) {
+	        //navigator.id.logout();
+	        alert("Login failure: " + err);
+	      }
+	    });
+	  },
+	  onlogout: function() {
+	    // A user has logged out! Here you need to:
+	    // Tear down the user's session by redirecting the user or making a call to your backend.
+	    // Also, make sure loggedInUser will get set to null on the next page load.
+	    // (That's a literal JavaScript null. Not false, 0, or undefined. null.)
+	    $.ajax({
+	      type: 'POST',
+	      url: '/api/logout', // This is a URL on your website.
+	      success: function(res, status, xhr) { console.log(res); },
+	      error: function(xhr, status, err) { alert("Logout failure: " + err); }
+	    });
+	  }
+	});    	
+    </script>
+  </body>
+</html>
