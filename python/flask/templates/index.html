@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.email %}  
+    <p>You are logged as {{ session.email }}</p>
+    <a href="#" id="signout"><span>Sign out</span></a>
+  {% else %} 
+    <a href="#" id="signin"><span>Sign in</span></a>
+  {% endif %}
+{% endblock %}
+{% block footer %}
+    <script type="text/javascript">
+      var App = {
+        init: function(){
+          function verifyAssertion(assertion) {
+            $.post('/auth/login', {assertion: assertion}, function (data, textStatus) {
+              if ('success' == textStatus) {
+                window.location.reload();
+              } else {
+                navigator.id.logout();
+              }
+            }, 'json');
+          }
+           
+          function signoutUser() {
+            $.post('/auth/logout', {}, function (data) {
+              window.location.reload();
+            });
+          }
+
+          navigator.id.watch( {
+            {% if session.email %}
+              loggedInUser: '{{ session.email }}',
+            {% else %}
+              loggedInUser: null,
+            {% endif %}
+              onlogin: verifyAssertion,
+              onlogout: signoutUser
+          });
+
+          var signIn = document.getElementById('signin'),
+              signOut = document.getElementById('signout');
+          
+          if (signIn){
+            signIn.onclick = function(){ navigator.id.request(); };
+          } else if (signOut){
+            signOut.onclick = function(){ navigator.id.logout(); };
+          }
+        }
+      }
+
+      $(document).ready(function(){
+        App.init();
+      });
+    </script>
+{% endblock %}

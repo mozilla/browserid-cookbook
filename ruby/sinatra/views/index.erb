@@ -1,0 +1,8 @@
+<% if login? %>
+  <p>Welcome <%= session[:email] %>!</p>
+  <a href="/auth/logout" title="Sign-out">Sign-out</a>
+<% else %>
+  <a id="browserid" href="#" title="Sign-in with Persona">
+    <img src="/images/sign_in_blue.png" alt="Sign-in with Persona"/>
+  </a>
+<% end %>

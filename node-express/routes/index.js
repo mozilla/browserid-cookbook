@@ -5,7 +5,7 @@ var https = require('https'),
  */
 
 exports.index = function(req, resp){
-  resp.render('index', { title: 'Express', user: req.session.email })
+  resp.render('index', { title: 'Express', user: req.session.email, csrf: req.session._csrf })
 };
 
 exports.auth = function (audience) {
@@ -38,9 +38,9 @@ exports.auth = function (audience) {
       assertion: assertion,
       audience: audience
     });
-    console.info('verifying with browserid');
+    console.info('verifying with persona');
     var request = https.request({
-      host: 'browserid.org',
+      host: 'verifier.login.persona.org',
       path: '/verify',
       method: 'POST',
       headers: {

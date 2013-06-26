@@ -1,16 +1,24 @@
 !!!
 html
   head
+    meta(http-equiv='X-UA-Compatible', content='IE=Edge')
     title= title
     link(rel='stylesheet', href='/css/style.css')
   body 
     nav
       if user
-        a(href='/logout') Logout 
+        a#logout(href='javascript:navigator.id.logout()') Logout
       else
         form(id="login-form", action="/auth", method="POST")
           input(id="assertion-field", type="hidden", name="assertion", value="")
-        a#browserid(href='/auth') Sign in      
-    != body
-    script(src='https://browserid.org/include.js')
+          input(type="hidden", name="_csrf", value=csrf)
+        a#browserid(href='javascript:navigator.id.request()') Sign in
+    block content
+    if user
+      script.
+        var loggedInUser = '#{user}';
+    else
+      script.
+        var loggedInUser = null;
+    script(src='https://login.persona.org/include.js')
     script(src='/js/main.js')

@@ -1,8 +1,9 @@
-# BrowserID Cookbook #
-This repo is for demonstrating how to use BrowserID in your favorite
+# Persona Cookbook #
+This repo is for demonstrating how to use Persona in your favorite
 language or framework.
 
-Starting with [Francois Marier](http://fmarier.org)'s simple demo in PHP, the cookbook hopes to capture your recipies.
+In most cases though, you can probably find a [library or plugin](https://developer.mozilla.org/en-US/docs/Persona/Libraries_and_plugins) ready
+to use with the framework or CMS that your site is built on.
 
 ## Get Involved ##
 Please fork and send us a pull request of your demo.
