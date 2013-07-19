@@ -1,0 +1,58 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import "bootstrap";
+
+body {
+	background: #666;
+}
+
+@font-face {
+	font-family: 'Lobster';
+	src: url('lobster_1.4-webfont.eot');
+	src: url('lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
+	url('lobster_1.4-webfont.woff') format('woff'),
+	url('lobster_1.4-webfont.ttf') format('truetype'),
+	url('lobster_1.4-webfont.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#disclaimer p {
+	margin: 0px 0px 10px;
+	width: 75%;
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+#title h2 {
+	font-family: Lobster;
+	color: white;
+	text-shadow: 1px 1px 2px rgb(34, 34, 34);
+	font-weight: normal;
+	margin-top: 19%;
+}
+
+#login-form .container .container{
+	background: #666;
+	height: 135px;
+	border-radius: 3px 3px 3px 3px;
+	border: 1px solid #888;
+	padding: 1%;
+	box-shadow: 0px 0px 8px black inset;
+}
+
+#login-form .span12 {
+	text-align: center;
+}
