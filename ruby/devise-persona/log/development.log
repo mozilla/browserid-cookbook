@@ -1,0 +1,247 @@
+Connecting to database specified by database.yml
+DEPRECATION WARNING: Passing a block to devise_for is deprecated. Please remove the block from devise_for (only the block, the call to devise_for must still exist) and call devise_scope :user do ... end with the block instead. (called from block in <top (required)> at /home/sean/Workspace/browserid-cookbook/ruby/devise-persona/config/routes.rb:6)
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (136.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (108.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (1.7ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to DeviseCreateUsers (20130716194425)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "encrypted_password" varchar(255) DEFAULT '' NOT NULL, "reset_password_token" varchar(255), "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar(255), "last_sign_in_ip" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20130716194425')[0m
+  [1m[35m (116.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+DEPRECATION WARNING: Passing a block to devise_for is deprecated. Please remove the block from devise_for (only the block, the call to devise_for must still exist) and call devise_scope :user do ... end with the block instead. (called from block in <top (required)> at /home/sean/Workspace/browserid-cookbook/ruby/devise-persona/config/routes.rb:6)
+Connecting to database specified by database.yml
+DEPRECATION WARNING: Passing a block to devise_for is deprecated. Please remove the block from devise_for (only the block, the call to devise_for must still exist) and call devise_scope :user do ... end with the block instead. (called from block in <top (required)> at /home/sean/Workspace/browserid-cookbook/ruby/devise-persona/config/routes.rb:6)
+
+
+Started GET "/" for 127.0.0.1 at 2013-07-19 16:52:50 -0500
+Processing by PagesController#index as HTML
+  Rendered pages/index.html.erb within layouts/application (16.5ms)
+Compiled pages.css  (0ms)  (pid 8871)
+Compiled persona-buttons.css  (0ms)  (pid 8871)
+Compiled application.css  (1368ms)  (pid 8871)
+Compiled jquery.js  (1ms)  (pid 8871)
+Compiled jquery_ujs.js  (0ms)  (pid 8871)
+Compiled pages.js  (85ms)  (pid 8871)
+Compiled persona_login.js  (0ms)  (pid 8871)
+Compiled application.js  (128ms)  (pid 8871)
+Completed 200 OK in 1587ms (Views: 1586.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /application.css - 200 OK (38ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/persona-buttons.css?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /persona-buttons.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/pages.css?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /pages.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /jquery_ujs.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/pages.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/persona_login.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /persona_login.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:52 -0500
+Served asset /application.js - 304 Not Modified (8ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 49ms (Views: 11.3ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /application.css - 304 Not Modified (27ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/persona-buttons.css?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /persona-buttons.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.css?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/persona_login.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /persona_login.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-19 16:52:55 -0500
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2013-07-19 16:53:00 -0500
+Processing by Devise::SessionsController#create as */*
+  Parameters: {"assertion"=>"eyJhbGciOiJSUzI1NiJ9.eyJwdWJsaWMta2V5Ijp7ImFsZ29yaXRobSI6IkRTIiwieSI6ImIxYTViYjBlZDI1ZTRkY2Q1YTUyMDYxMzViMDQ4YzM4ODkyMTgyY2ZmNDliNTJlYzc5NzJmOWVhZWZiMzQ4MWMzZmY5OTE2NmM0ZDUyNDVjYTIzN2ZmNDJjOTRkMzJhNGVmNGQwMGFmOGUxZDUzMTI2YmJiMDNmOGIyZGQyYjA4ZDk0ZTFjMGQwOWNkYTJlMGFiMTg5OTIwZjI3NTc3YjUwMDRhMGY2YTA3Zjg4N2VjZmQyZjU3MTY2NjJmMTA1NmU1MTQ2NDI5ZTFiZDY2OTVmMjNlMDJlNzY5MzgxNzg5YTllOGZjYmFlNmE1OGE4MjlkY2FjYjdkZjFlM2I3MzIiLCJwIjoiZmY2MDA0ODNkYjZhYmZjNWI0NWVhYjc4NTk0YjM1MzNkNTUwZDlmMWJmMmE5OTJhN2E4ZGFhNmRjMzRmODA0NWFkNGU2ZTBjNDI5ZDMzNGVlZWFhZWZkN2UyM2Q0ODEwYmUwMGU0Y2MxNDkyY2JhMzI1YmE4MWZmMmQ1YTViMzA1YThkMTdlYjNiZjRhMDZhMzQ5ZDM5MmUwMGQzMjk3NDRhNTE3OTM4MDM0NGU4MmExOGM0NzkzMzQzOGY4OTFlMjJhZWVmODEyZDY5YzhmNzVlMzI2Y2I3MGVhMDAwYzNmNzc2ZGZkYmQ2MDQ2MzhjMmVmNzE3ZmMyNmQwMmUxNyIsInEiOiJlMjFlMDRmOTExZDFlZDc5OTEwMDhlY2FhYjNiZjc3NTk4NDMwOWMzIiwiZyI6ImM1MmE0YTBmZjNiN2U2MWZkZjE4NjdjZTg0MTM4MzY5YTYxNTRmNGFmYTkyOTY2ZTNjODI3ZTI1Y2ZhNmNmNTA4YjkwZTVkZTQxOWUxMzM3ZTA3YTJlOWUyYTNjZDVkZWE3MDRkMTc1ZjhlYmY2YWYzOTdkNjllMTEwYjk2YWZiMTdjN2EwMzI1OTMyOWU0ODI5YjBkMDNiYmM3ODk2YjE1YjRhZGU1M2UxMzA4NThjYzM0ZDk2MjY5YWE4OTA0MWY0MDkxMzZjNzI0MmEzODg5NWM5ZDViY2NhZDRmMzg5YWYxZDdhNGJkMTM5OGJkMDcyZGZmYTg5NjIzMzM5N2EifSwicHJpbmNpcGFsIjp7ImVtYWlsIjoic2VhbkBkZWFkc3VwZXJoZXJvLmNvbSJ9LCJpYXQiOjEzNzQxOTY2MDUyOTUsImV4cCI6MTM3NDI4MzAwNTI5NSwiaXNzIjoibG9naW4ucGVyc29uYS5vcmcifQ.Z4B1wVlbY3wAy57pCssNh_5jNYFtOa0RWfUbtHp8RPa7oluuC7Wsz7Kzvcq4uLBHM6cGtL6NJq5atdOKLh3xQeQsV2aTiPdU2AQQyag_bZnk-BsxP6uy5e0bYhQ_FhGjEI_sS-2sBLrnkNQ6PPbYf97P5_iXRAMjzrmxcnj9FonZ2_Ya9lnOplQMVhctvuAd2nQN_3ckIrPeKH5TuG8gUkOOFntxPie27x3hfiUw_BxxJ8fbfDXm0en7XJntgR7GJ6DraxeT2ESa4LP_SMoKVw72WqOCN36P4i8NojXtF5qNQN0rbGuuRJpYxYeLuPZsstsYighJ1x6xNGP8NEG1FQ~eyJhbGciOiJEUzEyOCJ9.eyJleHAiOjEzNzQyNzA4OTczMzUsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjMwMDAifQ.01ooOjjnN8CUY9je5_p8PHsiZuJpXFOROzQ2njTcNphd51vDgMscWg"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."email" = 'sean@deadsuperhero.com' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'sean@deadsuperhero.com' LIMIT 1[0m
+Binary data inserted for `string` type on column `encrypted_password`
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "remember_created_at", "reset_password_sent_at", "reset_password_token", "sign_in_count", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["created_at", Fri, 19 Jul 2013 21:53:01 UTC +00:00], ["current_sign_in_at", nil], ["current_sign_in_ip", nil], ["email", "sean@deadsuperhero.com"], ["encrypted_password", "$2a$10$E8YWwGAnchldPLrLDmpEVu.f0hxtAOfpeOJur4b/wqgYPfT1c6UfO"], ["last_sign_in_at", nil], ["last_sign_in_ip", nil], ["remember_created_at", nil], ["reset_password_sent_at", nil], ["reset_password_token", nil], ["sign_in_count", 0], ["updated_at", Fri, 19 Jul 2013 21:53:01 UTC +00:00]]
+  [1m[36m (128.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = '2013-07-19 21:53:01.464661', "current_sign_in_at" = '2013-07-19 21:53:01.464661', "last_sign_in_ip" = '127.0.0.1', "current_sign_in_ip" = '127.0.0.1', "sign_in_count" = 1, "updated_at" = '2013-07-19 21:53:01.465766' WHERE "users"."id" = 1[0m
+  [1m[35m (105.0ms)[0m  commit transaction
+Redirected to http://0.0.0.0:3000/
+Completed 302 Found in 999ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Processing by PagesController#index as */*
+  Rendered pages/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 18ms (Views: 17.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Processing by PagesController#index as HTML
+  Rendered pages/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 19ms (Views: 18.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /application.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/persona-buttons.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /persona-buttons.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/persona_login.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /persona_login.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:01 -0500
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/users/sign_out" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Processing by Devise::SessionsController#destroy as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.0ms)[0m  [1mcommit transaction[0m
+Redirected to http://0.0.0.0:3000/
+Completed 302 Found in 23ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Processing by PagesController#index as HTML
+  Rendered pages/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 12ms (Views: 12.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /application.css - 304 Not Modified (10ms)
+
+
+Started GET "/assets/persona-buttons.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /persona-buttons.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/persona_login.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /persona_login.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:03 -0500
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 14ms (Views: 13.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /application.css - 304 Not Modified (12ms)
+
+
+Started GET "/assets/pages.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /pages.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /jquery.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/persona-buttons.css?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /persona-buttons.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pages.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /pages.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/persona_login.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /persona_login.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-19 16:53:04 -0500
+Served asset /application.js - 304 Not Modified (1ms)
