@@ -14,7 +14,7 @@
   "dependencies": {
     "express": "3.2.x",
     "jade": "0.31.x",
-    "qs": "0.6.x"
+    "browserid-verify": "0.1.x"
   },
   "devDependencies": {},
   "optionalDependencies": {}
