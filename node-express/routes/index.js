@@ -1,5 +1,6 @@
 var https = require('https'),
-    qs = require('qs');
+    verify = require('browserid-verify')();
+
 /*
  * GET home page.
  */
@@ -9,48 +10,32 @@ exports.index = function(req, resp){
 };
 
 exports.auth = function (audience) {
+
   return function(req, resp){
-    function onVerifyResp(bidRes) {
-      var data = "";
-      bidRes.setEncoding('utf8');
-      bidRes.on('data', function (chunk) {
-        data += chunk;
-      });
-      bidRes.on('end', function () {
-        var verified = JSON.parse(data);
-        resp.contentType('application/json');
-        if (verified.status == 'okay') {
-          console.info('browserid auth successful, setting req.session.email');
-          req.session.email = verified.email;
-          resp.redirect('/');
-        } else {
-          console.error(verified.reason);
-          resp.writeHead(403);
-        }
-        resp.write(data);
-        resp.end();
-      });
-    };
-    
+    console.info('verifying with persona');
+
     var assertion = req.body.assertion;
 
-    var body = qs.stringify({
-      assertion: assertion,
-      audience: audience
-    });
-    console.info('verifying with persona');
-    var request = https.request({
-      host: 'verifier.login.persona.org',
-      path: '/verify',
-      method: 'POST',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'content-length': body.length
+    verify(assertion, audience, function(err, email, data) {
+      if (err) {
+        // return JSON with a 500 saying something went wrong
+        console.warn('request to verifier failed : ' + err);
+        return resp.send(500, { status : 'failure', reason : '' + err });
       }
-    }, onVerifyResp);
-    request.write(body);
-    request.end();
+
+      // got a result, check if it was okay or not
+      if ( email ) {
+        console.info('browserid auth successful, setting req.session.email');
+        req.session.email = email;
+        return resp.redirect('/');
+      }
+
+      // request worked, but verfication didn't, return JSON
+      console.error(data.reason);
+      resp.send(403, data)
+    });
   };
+
 };
 
 exports.logout = function (req, resp) {
