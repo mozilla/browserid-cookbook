@@ -26,14 +26,14 @@ if (isset($_POST['assertion'])) {
   <link rel="stylesheet" type="text/css" href="css/persona-buttons.css"
   </head>
   <body>
-    <form id="login-form" method="POST">
+    <form id="login-form" method="POST" action="persona.php">
       <input id="assertion-field" type="hidden" name="assertion" value="">
     </form>
-    <?= $body ?>
+    <?php echo $body ?>
     <script src="https://login.persona.org/include.js"></script>
     <script>
     navigator.id.watch({
-        loggedInUser: <?= $email ? "'$email'" : 'null' ?>,
+        loggedInUser: <?php echo $email ? "'$email'" : 'null' ?>,
         onlogin: function (assertion) {
             var assertion_field = document.getElementById("assertion-field");
             assertion_field.value = assertion;
@@ -61,7 +61,7 @@ class Persona
      */
     public function __construct($audience = NULL)
     {
-        $this->audience = $audience ?: $this->guessAudience();
+        $this->audience = $audience ? $audience : $this->guessAudience();
     }
 
     /**
