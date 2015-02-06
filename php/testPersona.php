@@ -25,7 +25,7 @@ if (isset($_POST['assertion'])) {
 ?><!DOCTYPE html>
 <html>
   <head><meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <link rel="stylesheet" type="text/css" href="css/persona-buttons.css"
+  <link rel="stylesheet" type="text/css" href="css/persona-buttons.css">
   </head>
   <body>
     <form id="login-form" method="POST" action="testPersona.php">
